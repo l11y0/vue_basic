@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="reduce">-</button>
+        {{res}}
+        <button @click="add">+</button>
+        <br>
+        <h3>總價：NT${{parseTotal()}}</h3>
+        <h3>合計金額：{{parseTotalJP()}}円</h3>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    res: 0,
+                    count: 1,
+                    total: 0,
+                    yen: 0,
+                }
+            },
+            methods: {
+                parseTotal(){
+                    this.total = 100*this.res
+                    return this.total
+                },
+                parseTotalJP(){
+                    this.yen = 100*0.22*this.res
+                    return this.yen
+                },
+                add(){
+                    if(this.res >= 20) return
+                    this.res += this.count
+                },
+                reduce(){
+                    if(this.res == 0) return
+                    this.res -= this.count
+                },
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>
