@@ -4,30 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .img-wrap {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .img-wrap img {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        {{test}}
+
+        <h1>Shopping Cart</h1>
+
+        <!-- 上架 -->
+        <div class="prodItem" v-for = "prodItem in products" :key="prodItem.id">
+            <!-- <div class="img-wrap">
+                <img :src="prodItem.image" alt="">
+            </div>
+            <h6>{{prodItem['title']}}</h6> -->
+
+            <p>
+                <!-- {{prodItem.rating}} -->
+                <!-- { "rate": 3.9, "count": 120 } -->
+                {{prodItem?.rating?.rate}} ({{prodItem?.rating?.count}})
+                <span v-for="star in parseInt(prodItem?.rating?.rate)">⭐</span>
+            </p>
+        </div>
+    
     </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script>
         Vue.createApp({
             data(){
-                return{
-                    this: '00',
-                }
-            },
-            methods: {
-                test2(){
-                    console.log(2);
+                return {
+                    products: []
                 }
             },
             mounted(){
-                //畫面渲染完開始執行作用域中的東西
+                // 畫面渲染完，開始執行作用域中的東西
+                // 1.叫貨車來
                 fetch('https://fakestoreapi.com/products')
-                .then(res=>res.json())
-                .then(json=>console.log(json))
+                .then(res=>{
+                    // 2.貨車來了
+                    return res.json()
+                })
+                .then(json=>{
+                    // 3.貨車卸貨
+                    console.log(json)
+                    // 4.放到倉庫
+                    this.products = json
+                })
             },
         }).mount("#app");
     </script>
