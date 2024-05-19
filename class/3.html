@@ -1,54 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div id="app">
-    <button @click="reduce">-</button>
-    {{res}}
-    <button @click="add">+</button>
-    <br>
-    總價：{{ parse() }} 
-    美金：{{ parseDollar() }}
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="reduce">-</button>
+      {{res}}
+      <button @click="add">+</button>
+      <br />
+      總價：{{ parse() }} 美金：{{ parseDollar() }}
+    </div>
 
-  <script src="https://unpkg.com/vue"></script>
-  <script>
-    Vue.createApp({
-      data() {
-        return {
-          res: 0,
-          count: 1,
-          price: 100,
-          total: 0
-        }
-      },
-      methods: {
-        parseDollar(){
-          // 錯誤寫法->以後用computed
-          return this.total / 30
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            res: 0,
+            count: 1,
+            price: 100,
+            total: 0,
+          };
         },
-        parse(){
-          // 半正確寫法
-          // return this.price * this.res
-          // 錯誤寫法
-          this.total = this.price * this.res
-          return this.total
+        methods: {
+          parseDollar() {
+            // 錯誤寫法->以後用computed
+            return this.total / 30;
+          },
+          parse() {
+            // 半正確寫法
+            // return this.price * this.res
+            // 錯誤寫法
+            this.total = this.price * this.res;
+            return this.total;
+          },
+          add() {
+            // this.res = this.res + 1
+            if (this.res >= 100) return;
+            this.res += this.count;
+          },
+          reduce() {
+            if (this.res == 0) return;
+            this.res -= this.count;
+          },
         },
-        add(){
-          // this.res = this.res + 1
-          if(this.res >= 100) return
-          this.res += this.count
-        },
-        reduce(){
-          if(this.res == 0 )return
-          this.res -= this.count
-        },
-      },
-    }).mount("#app")
-  </script>
-</body>
+      }).mount("#app");
+    </script>
+  </body>
 </html>
