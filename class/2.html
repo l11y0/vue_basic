@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        2
+    </div>
+    <script>
+        function add(num1, num2){
+            return parseInt(num1) + parseInt(num2);
+        }
+        const res = add(10, 20)
+
+        const addRes = (num1, num2) => {
+            return parseInt(num1) + parseInt(num2)
+        }
+        //新的框架會比較常用const和let，不太用var
+        //型別要注意不然會很可怕
+        console.log(res);
+        console.log(addRes(10,20));
+
+        const adddata = (name, blood_type) => {
+            return `我是${name}，血型是${blood_type}型`
+        }
+        console.log(adddata('羊肉少東', 'O'))
+    </script>
+</body>
+</html>

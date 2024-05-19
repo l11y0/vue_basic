@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+</head>
+<body>
+    <div id="app">
+        <h2>我是{{name}}，我愛看{{anime[2]}}，我爸的脾氣{{family.dad[2]}}</h2>
+        <!-- 物件的另一個寫法family["dad"][2] -->
+        <h3 v-html="family.dad[0]"></h3>
+        <h3 v-html="content"></h3>
+        <h3>{{live?'活著':'死掉了'}}</h3>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        // debugger
+        // console.log(Vue)
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: 'Pingu',
+                    age: '26',
+                    live: true,
+                    anime: ['芙莉蓮', '防風少年', '排球少年'],
+                    family: {
+                        dad: ['很髒', '情緒化', '很牛'],
+                        dog: ['卡愛', '黑狗', '米克斯']
+                    },
+                    content: `<div style="color: red">hello<div>`
+                }
+            },
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>
