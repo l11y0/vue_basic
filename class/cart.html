@@ -6,11 +6,13 @@
     <title>Document</title>
     <style>
         .cartItem {
-            width: 800px;
+            width: 500px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e7e7e7;
         }
         .itemAmount {
             width: 100px;
@@ -30,20 +32,23 @@
 
         <h1>Shopping Cart</h1>
 
-        <!-- 商品1 -->
-        <div class="cartItem" v-for="(cartItem, cartIndex) in cartList">
-            <img :src="cartList[cartIndex]['img']" alt="">
-            <h2>{{cartList[cartIndex]['itemname']}}</h2>
-            <h4>NT.{{cartList[cartIndex]['price']}}</h4>
+        <!-- 商品 -->
+        <div class="cartItem" v-for="(cartItem, cartIndex) in cartList" :key="cartItem['id']">
+            <img :src="cartItem['img']" alt="">
+            <h2>{{cartItem['itemname']}}</h2>
+            <h4>NT.{{cartItem['price']}}</h4>
             <div class="itemAmount">
                 <button @click="reduce(cartIndex)">-</button>
-                <h4>{{cartList[cartIndex]['amount']}}</h4>
+                <h4>{{cartItem['amount']}}</h4>
                 <button @click="add(cartIndex)">+</button>
             </div>
             <div class="remove">
                 <button @click="remove">x</button>
             </div>
         </div>
+
+        <h2>Total NT.{{total}}</h2>
+        <h2>Total ${{totalDollar}}</h2>
 
     </div>
 
@@ -71,19 +76,37 @@
                     ],
                 }
             },
-        methods: {
-            add(index){
-                this.cartList[index]['amount'] += 1;
-            },
-            reduce(index){
-                if(this.cartList[index]['amount'] == 0) return;
-                this.cartList[index]['amount'] -= 1;
-            },
-            remove(){
+            computed: {
+                total(){
+                    // const item1 = this.cartList[0]['price']*this.cartList[0]['amount']
+                    // const item2 = this.cartList[1]['price']*this.cartList[0]['amount']
+                    // return item1 + item2
 
-            }
-        },
-    }).mount("#app");
+                    // for迴圈
+                    let price = 0
+                    for (let index = 0; index < this.cartList.length; index ++){
+                        price += (this.cartList[index]['price']*this.cartList[index]['amount'])
+                    }
+                    return price
+                },
+                totalDollar(){
+                    let dollarPrice = 0
+                    for (let index = 0; index < this.cartList.length; index ++){
+                        dollarPrice += (this.cartList[index]['price']*this.cartList[index]['amount']/30)
+                    }
+                    return dollarPrice
+                }
+            },
+            methods: {
+                add(index){
+                    this.cartList[index]['amount'] += 1;
+                },
+                reduce(index){
+                    if(this.cartList[index]['amount'] == 0) return;
+                    this.cartList[index]['amount'] -= 1;
+                },
+            },
+        }).mount("#app");
     </script>
 </body>
 </html>
