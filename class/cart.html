@@ -27,34 +27,24 @@
 </head>
 <body>
     <div id="app">
+
+        <h1>Shopping Cart</h1>
+
         <!-- 商品1 -->
-        <div class="cartItem">
-            <img :src="cartList[0]['img']" alt="">
-            <h2>{{cartList[0]['itemname']}}</h2>
-            <h4>NT.{{cartList[0]['price']}}</h4>
+        <div class="cartItem" v-for="(cartItem, cartIndex) in cartList">
+            <img :src="cartList[cartIndex]['img']" alt="">
+            <h2>{{cartList[cartIndex]['itemname']}}</h2>
+            <h4>NT.{{cartList[cartIndex]['price']}}</h4>
             <div class="itemAmount">
-                <button @click="reduce(0)">-</button>
-                <h4>{{cartList[0]['amount']}}</h4>
-                <button @click="add(0)">+</button>
+                <button @click="reduce(cartIndex)">-</button>
+                <h4>{{cartList[cartIndex]['amount']}}</h4>
+                <button @click="add(cartIndex)">+</button>
             </div>
             <div class="remove">
                 <button @click="remove">x</button>
             </div>
         </div>
-        <!-- 商品2 -->
-        <div class="cartItem">
-            <img :src="cartList[1]['img']" alt="">
-            <h2>{{cartList[1]['itemname']}}</h2>
-            <h4>NT.{{cartList[1]['price']}}</h4>
-            <div class="itemAmount">
-                <button @click="reduce(1)">-</button>
-                <h4>{{cartList[1]['amount']}}</h4>
-                <button @click="add(1)">+</button>
-            </div>
-            <div class="remove">
-                <button @click="remove">x</button>
-            </div>
-        </div>
+
     </div>
 
     <script src="https://unpkg.com/vue"></script>
@@ -64,14 +54,14 @@
                 return{
                     cartList: [
                         {
-                        img: "https://picsum.photos/200/200/?random=1",
+                        img: "https://picsum.photos/100/100/?random=1",
                         id: 'item1',
                         itemname: '牛肉',
                         price: '120',
                         amount: 1,
                         },
                         {
-                        img: "https://picsum.photos/200/200/?random=2",
+                        img: "https://picsum.photos/100/100/?random=2",
                         id: 'item2',
                         itemname: '雞肉',
                         price: '80',
