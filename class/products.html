@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{test}}
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    this: '00',
+                }
+            },
+            methods: {
+                test2(){
+                    console.log(2);
+                }
+            },
+            mounted(){
+                //畫面渲染完開始執行作用域中的東西
+                fetch('https://fakestoreapi.com/products')
+                .then(res=>res.json())
+                .then(json=>console.log(json))
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>

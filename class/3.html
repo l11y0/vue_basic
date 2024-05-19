@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app">
-      <button @click="reduce">-</button>
-      {{res}}
-      <button @click="add">+</button>
-      <br />
-      總價：{{ parse() }} 美金：{{ parseDollar() }}
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="reduce">-</button>
+    {{res}}
+    <button @click="add">+</button>
+    <br>
+    <!-- 總價(調用methods)：{{ parse2() }}  -->
+    總價(使用computed)：{{ parse1 }} 
+    美金：{{ dollar }}
+  </div>
 
-    <script src="https://unpkg.com/vue"></script>
-    <script>
-      Vue.createApp({
-        data() {
-          return {
-            res: 0,
-            count: 1,
-            price: 100,
-            total: 0,
-          };
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          res: 0,
+          count: 1,
+          price: 100
+        }
+      },
+      computed: {
+        parse1(){
+          return this.price * this.res
         },
-        methods: {
-          parseDollar() {
-            // 錯誤寫法->以後用computed
-            return this.total / 30;
-          },
-          parse() {
-            // 半正確寫法
-            // return this.price * this.res
-            // 錯誤寫法
-            this.total = this.price * this.res;
-            return this.total;
-          },
-          add() {
-            // this.res = this.res + 1
-            if (this.res >= 100) return;
-            this.res += this.count;
-          },
-          reduce() {
-            if (this.res == 0) return;
-            this.res -= this.count;
-          },
+        dollar(){
+          // return (this.price * this.res)/30
+          // 使用computed
+          return this.parse / 30
+        }
+      },
+      methods: {
+        // 可以把這段轉換的function拉到computed
+        // parse2(){
+        //   return this.price * this.res
+        // },
+        add(){
+          // this.res = this.res + 1
+          if(this.res >= 100) return
+          this.res += this.count
         },
-      }).mount("#app");
-    </script>
-  </body>
+        reduce(){
+          if(this.res == 0 )return
+          this.res -= this.count
+        },
+      },
+    }).mount("#app")
+  </script>
+</body>
 </html>
